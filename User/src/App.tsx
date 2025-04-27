@@ -4,7 +4,7 @@ import { User } from './components/types';
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [formData, setFormData] = useState<User>({
-    id: 0,
+    id: '', // Changed from 0 to '' (string)
     name: '',
     surname: '',
     age: '',
@@ -12,7 +12,7 @@ function App() {
     email: '',
     image: null
   });
-  const [editId, setEditId] = useState<number | null>(null);
+  const [editId, setEditId] = useState<string | null>(null); // Changed from number to string
 
   // Fetch users from MongoDB on mount
   useEffect(() => {
@@ -102,7 +102,7 @@ function App() {
         const data = await response.json();
         setUsers([...users, { id: data._id, ...data }]);
       }
-      setFormData({ id: 0, name: '', surname: '', age: '', mobile: '', email: '', image: null });
+      setFormData({ id: '', name: '', surname: '', age: '', mobile: '', email: '', image: null });
     } catch (error) {
       console.error('Error saving user:', error);
       alert('Failed to save user');
@@ -114,7 +114,7 @@ function App() {
     setEditId(user.id);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => { // Changed from number to string
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         const response = await fetch(`http://localhost:5000/api/users/${id}`, {

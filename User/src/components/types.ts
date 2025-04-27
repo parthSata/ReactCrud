@@ -1,5 +1,5 @@
 export interface User {
-  id: number | string; // Allow string for MongoDB _id
+  id: string; // Use string for MongoDB _id
   name: string;
   surname: string;
   age: string;
